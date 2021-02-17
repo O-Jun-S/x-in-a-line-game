@@ -86,8 +86,3 @@ class Board:
                     if y_mark_count == self.height:
                         return True
         return False
-
-
-if __name__ == '__main__':
-    board = Board(10, 10)
-    board.print_board()
