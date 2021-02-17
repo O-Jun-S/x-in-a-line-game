@@ -4,9 +4,9 @@ setup(
     name='ox-game',
     version='1.0',
     packages=[''],
-    url='',
+    url='https://github.com/O-Jun-S/x-in-a-line-game',
     license='',
     author='Ojun',
-    author_email='',
-    description='X in a row game.'
+    author_email='jun.shima256@gmail.com',
+    description='X in a line game.'
 )
