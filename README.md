@@ -1,4 +1,4 @@
-# X In A Low
+# X In A Line
 You can play "x (natural integer) in a low" game.
 It's a CUI game.
 
