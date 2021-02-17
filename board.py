@@ -1,3 +1,11 @@
+from prettytable import PrettyTable
+from prettytable import PLAIN_COLUMNS
+
+
+# style of printing the game-board.
+STYLE = PLAIN_COLUMNS
+
+
 class Board:
     def __init__(self, width, height):
         self.width = width
@@ -14,23 +22,28 @@ class Board:
             self.board_list.append(row)
 
     def print_board(self):
-        print("    " + "   ".join(map(lambda num: str(num), range(self.width))))
-        self.print_partition()
-        for y in range(self.height):
-            row = f"{y} |"
-            for x in range(self.width):
-                row += " "
-                row += self.board_list[y][x]
-                row += " |"
-            print(row.strip())
-            self.print_partition()
+        """print board using PrettyTable."""
 
-    def print_partition(self):
-        print("-----" * self.width)
+        # create table.
+        table = PrettyTable()
+        table.set_style(STYLE)
+
+        # add data about first row to the table.
+        field_names = ["game"]
+        field_names.extend(str(_int) for _int in range(self.height))
+        table.field_names = field_names
+
+        # add data about from second row to last row to the table.
+        for y in range(self.height):
+            row = [str(y)]
+            row.extend(self.board_list[y])
+            table.add_row(row)
+
+        print(table.get_string())
 
     def check_win(self):
         """check whether person who has the now turn is win."""
-        return self.are_marks_in_a_row() or self.are_marks_in_a_column()
+        return self.same_marks_in_a_row() or self.same_marks_in_a_column()
 
     def put_mark(self, x, y):
         """put mark to the board according to the arguments."""
@@ -51,7 +64,8 @@ class Board:
 
         self.put_mark(x, y)
 
-    def are_marks_in_a_row(self):
+    def same_marks_in_a_row(self):
+        """check if the same marks in a row"""
         for y in range(self.height):
             x_mark_count = 0
             for x in range(self.width):
@@ -62,7 +76,8 @@ class Board:
                 return True
         return False
 
-    def are_marks_in_a_column(self):
+    def same_marks_in_a_column(self):
+        """check if the same marks in a column"""
         for x in range(self.width):
             y_mark_count = 0
             for y in range(self.height):
@@ -71,3 +86,8 @@ class Board:
                     if y_mark_count == self.height:
                         return True
         return False
+
+
+if __name__ == '__main__':
+    board = Board(10, 10)
+    board.print_board()
